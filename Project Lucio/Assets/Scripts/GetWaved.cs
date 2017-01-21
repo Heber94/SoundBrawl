@@ -17,12 +17,12 @@ public class GetWaved : MonoBehaviour {
 	void OnCollisionEnter(Collision c)
 	{
 		// force is how forcefully we will push the player away from the enemy.
-		float force = 8;
+		float force = 0;
 
 		// If the object we hit is the enemy
 		if (c.gameObject.tag == "Wave")
 		{
-			// Calculate Angle Between the collision point and the player
+			force = c.gameObject.transform.localScale.y*c.gameObject.transform.localScale.y*20;
 			Vector3 dir = c.gameObject.transform.position - transform.position;
 			// We then get the opposite (-Vector3) and normalize it
 			dir = -dir.normalized;
