@@ -37,31 +37,24 @@ public class waveGenerator : MonoBehaviour {
 			//			                                                    new Vector3 (transform.localScale.x + targetScale,
 			//			            transform.localScale.y + targetScale,
 			//			            transform.localScale.z + targetScale), Time.deltaTime * growSpeed);
-		} else {
-			//			sphere.transform.localScale = Vector3.Lerp (sphere.transform.localScale, 
-			//			                                            new Vector3 (1f, 1f, 1f), Time.deltaTime * shrinkSpeed);
-			//			sphereCollider.transform.localScale = Vector3.Lerp (sphere.transform.localScale, 
-			//			                                                    new Vector3 (1f, 1f, 1f), Time.deltaTime * shrinkSpeed);
-
-			
-		}
-		
+		} 
 		if (Input.GetKeyUp (KeyCode.Space)) {
-			sphere.SetActive(false);
 			explosion.transform.position = transform.position;
 			explosion.Play();
 			killerSphere.SetActive(true);
 			killerSphere.transform.position = transform.position;
-			killerSphere.transform.localScale = Vector3.Lerp (sphere.transform.localScale, new Vector3 (targetScale,targetScale,targetScale), Time.deltaTime * growSpeed);
-
-			killerSphere.GetComponent<SphereCollider>().transform.localScale = killerSphere.transform.localScale;
-			colliders = Physics.OverlapSphere (killerSphere.transform.position, targetScale);
+			killerSphere.transform.localScale = sphere.transform.localScale;
+			SphereCollider kscollider = killerSphere.GetComponent<SphereCollider>();
+			kscollider.transform.localScale = sphere.transform.localScale;
+			colliders = Physics.OverlapSphere (killerSphere.transform.position,kscollider.radius*kscollider.transform.localScale.x);
 
 			foreach(Collider col in colliders)
 			{
 				if(col.tag == "Enemy")
 					col.gameObject.SetActive(false);
 			}
+			
+			sphere.SetActive(false);
 			killerSphere.SetActive(false);
 			sphere.transform.localScale = transform.localScale;
 			killerSphere.transform.localScale = sphere.transform.localScale;
