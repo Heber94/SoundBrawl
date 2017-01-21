@@ -3,12 +3,12 @@ using System.Collections;
 
 public class GetWaved : MonoBehaviour {
 	Rigidbody rb;
+
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody>();
 	}
 
-		
 	//rb.AddForce(-5, 5, 0, ForceMode.Impulse);
 	void OnCollisionEnter(Collision c)
 	{
@@ -18,8 +18,12 @@ public class GetWaved : MonoBehaviour {
 		// If the object we hit is the enemy
 		if (c.gameObject.tag == "Wave")
 		{
-			force = c.gameObject.transform.localScale.y*c.gameObject.transform.localScale.y*20;
-			Vector3 dir = c.gameObject.transform.position - transform.position;
+           
+
+            force = Mathf.Clamp(c.gameObject.transform.localScale.y, 100, 200);
+
+
+            Vector3 dir = c.gameObject.transform.position - transform.position;
 			// We then get the opposite (-Vector3) and normalize it
 			dir = -dir.normalized;
 			// And finally we add force in the direction of dir and multiply it by force. 
