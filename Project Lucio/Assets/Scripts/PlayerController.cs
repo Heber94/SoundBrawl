@@ -6,6 +6,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
+    //Gamepad Mapping
+    public string prefix;
+    //
+
     public Animator anim;
     public float jumpForce = 20f;
     public float speed = 6f;
@@ -15,6 +19,7 @@ public class PlayerController : MonoBehaviour
     float hMovement = 0;
     public float mass;
     private float groundDistance;
+   
 
     Rigidbody rb;
     private bool doubleJump = true;
@@ -27,22 +32,24 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        rb.AddForce(Vector3.down * gravity * mass/2 );
-        
+        TestDeath();
+
+        rb.AddForce(Vector3.down * gravity * mass / 2);
 
         //movement Manager
         if (IsGrounded())
         {
             anim.SetBool("IsFalling", false);
-            if (Input.GetAxis("Horizontal") != 0)
+            if (Input.GetAxis(prefix + "Horizontal") != 0)
             {
                 anim.SetBool("IsWalking", true);
-                hMovement = Input.GetAxisRaw("Horizontal") * speed;
-            }else
+                hMovement = Input.GetAxisRaw(prefix + "Horizontal") * speed;
+            }
+            else
             {
                 anim.SetBool("IsWalking", false);
             }
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetButtonDown(prefix + "Jump"))
             {
                 anim.SetTrigger("Jumping");
                 rb.AddForce(Vector3.right * hMovement * 2 * mass);
@@ -53,19 +60,35 @@ public class PlayerController : MonoBehaviour
         else
         {
             anim.SetBool("IsFalling", true);
-            hMovement = Input.GetAxisRaw("Horizontal") * speed / airFriction;
+            hMovement = Input.GetAxisRaw(prefix + "Horizontal") * speed / airFriction;
 
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetButtonDown(prefix + "Jump"))
             {
                 if (doubleJump == true)
                 {
                     anim.SetTrigger("Jumping");
-                    rb.velocity = Vector3.up * jumpForce/1.5f;
+                    rb.velocity = Vector3.up * jumpForce / 1.5f;
                     doubleJump = false;
                 }
-            }  
+            }
         }
-        transform.Translate(Vector3.right * hMovement * Time.deltaTime);
+
+        if (hMovement < 0)
+        {
+        
+            transform.localRotation = Quaternion.Euler(0, 180, 0);
+            transform.Translate(Vector3.right * -hMovement * Time.deltaTime);
+        }
+        else if (hMovement > 0)
+        {
+            
+            transform.localRotation = Quaternion.Euler(0, 0, 0);
+            transform.Translate(Vector3.right * hMovement * Time.deltaTime);
+        }
+
+
+       
+
         rb.AddForce(Vector3.up * airFrictionUp);
     }
 
@@ -73,6 +96,14 @@ public class PlayerController : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics.Raycast(transform.position, -Vector3.up, groundDistance + 0.1f);
+    }
+
+    void TestDeath()
+    {
+        if (transform.position.y < -25)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
 }

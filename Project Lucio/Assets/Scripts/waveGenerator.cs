@@ -22,7 +22,7 @@ public class waveGenerator : MonoBehaviour {
 		
 		sphere.SetActive (true);
 		float targetScale = 5f;
-		float shrinkSpeed = 3.5f;
+		//float shrinkSpeed = 3.5f;
 		float growSpeed = 2.5f;
 		Vector3 scale = transform.localScale;
 		sphere.tag = "Player";
