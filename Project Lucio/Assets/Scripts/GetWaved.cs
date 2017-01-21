@@ -2,16 +2,12 @@
 using System.Collections;
 
 public class GetWaved : MonoBehaviour {
-	public Rigidbody rb;
+	Rigidbody rb;
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 		
 	//rb.AddForce(-5, 5, 0, ForceMode.Impulse);
 	void OnCollisionEnter(Collision c)

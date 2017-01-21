@@ -35,6 +35,7 @@ public class PlayerShoot : MonoBehaviour
         //if (Input.GetButtonDown(prefix + "Fire1")) {
         if (Input.GetButtonUp(prefix + "Fire1"))
         {
+            Debug.Log("Suelta");
             anim.SetBool("AttackCharge", false);
             upMoment = Time.time;
             pressTime = upMoment - downMoment;
