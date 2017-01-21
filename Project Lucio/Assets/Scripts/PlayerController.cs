@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
+    public Animator anim;
     public float jumpForce = 20f;
     public float speed = 6f;
     public float airFriction = 2f;
@@ -32,10 +33,18 @@ public class PlayerController : MonoBehaviour
         //movement Manager
         if (IsGrounded())
         {
-            hMovement = Input.GetAxisRaw("Horizontal") * speed;
-
+            anim.SetBool("IsFalling", false);
+            if (Input.GetAxis("Horizontal") != 0)
+            {
+                anim.SetBool("IsWalking", true);
+                hMovement = Input.GetAxisRaw("Horizontal") * speed;
+            }else
+            {
+                anim.SetBool("IsWalking", false);
+            }
             if (Input.GetButtonDown("Jump"))
             {
+                anim.SetTrigger("Jumping");
                 rb.AddForce(Vector3.right * hMovement * 2 * mass);
                 rb.velocity = Vector3.up * jumpForce;
             }
@@ -43,12 +52,14 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            anim.SetBool("IsFalling", true);
             hMovement = Input.GetAxisRaw("Horizontal") * speed / airFriction;
 
             if (Input.GetButtonDown("Jump"))
             {
                 if (doubleJump == true)
                 {
+                    anim.SetTrigger("Jumping");
                     rb.velocity = Vector3.up * jumpForce/1.5f;
                     doubleJump = false;
                 }
