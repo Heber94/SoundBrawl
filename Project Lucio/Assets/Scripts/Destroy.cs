@@ -22,7 +22,10 @@ public class Destroy : MonoBehaviour {
 
 	void OnCollisionEnter(Collision c)
 	{
-		if (c.gameObject.tag == "Player") {
+		if (c.gameObject.tag == "Wave") {
+			Physics.IgnoreCollision(c.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
+		}
+		if (c.gameObject.tag != gameObject.tag) {
 			Destroy (gameObject);
 		}
 	}
