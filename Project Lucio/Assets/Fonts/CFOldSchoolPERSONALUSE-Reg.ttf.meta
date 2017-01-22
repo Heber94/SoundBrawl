@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 166ab29f55c17e14987eea7f52023d7d
+timeCreated: 1485076591
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: CF Old School PERSONAL USE
+  fontNames:
+  - CF Old School PERSONAL USE
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
