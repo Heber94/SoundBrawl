@@ -7,13 +7,15 @@ public class waveGenerator : MonoBehaviour {
 	public GameObject killerSphere;
 	public Collider[] colliders;
 	public ParticleSystem explosion;
+    public string prefix;
 	// Use this for initialization
 
 
 	void Start () {
 		sphere.transform.position = transform.position;
-		sphere.transform.localScale = transform.localScale;
-		sphere.tag = "Player";
+		sphere.transform.localScale = transform.localScale/4;
+		sphere.tag = "Wave";
+        sphere.layer = 8;
 
 	}
 	
@@ -25,8 +27,8 @@ public class waveGenerator : MonoBehaviour {
 		//float shrinkSpeed = 3.5f;
 		float growSpeed = 2.5f;
 		Vector3 scale = transform.localScale;
-		sphere.tag = "Player";
-		if (Input.GetKey (KeyCode.Space)) {
+		sphere.tag = "Wave";
+		if (Input.GetButton(prefix + "Melee")) {
 
 			sphere.transform.localScale = Vector3.Lerp (sphere.transform.localScale, 
 			             new Vector3 (transform.localScale.x + targetScale,
@@ -38,7 +40,7 @@ public class waveGenerator : MonoBehaviour {
 			//			            transform.localScale.y + targetScale,
 			//			            transform.localScale.z + targetScale), Time.deltaTime * growSpeed);
 		} 
-		if (Input.GetKeyUp (KeyCode.Space)) {
+		if (Input.GetButtonUp(prefix + "Melee")) {
 			explosion.transform.position = transform.position;
 			explosion.Play();
 			killerSphere.SetActive(true);
@@ -50,21 +52,16 @@ public class waveGenerator : MonoBehaviour {
 
 			foreach(Collider col in colliders)
 			{
-				if(col.tag == "Enemy")
+				if(col.tag == "Player" && col.gameObject != gameObject)
 					col.gameObject.SetActive(false);
 			}
 			
 			sphere.SetActive(false);
 			killerSphere.SetActive(false);
-			sphere.transform.localScale = transform.localScale;
+			sphere.transform.localScale = transform.localScale/4;
 			killerSphere.transform.localScale = sphere.transform.localScale;
 		}
 
 	}
-
-	void FixedUpdate () {
-
-	}
-
 
 }

@@ -16,8 +16,12 @@ public class Spawning : MonoBehaviour {
 
         for (int i = 1; i < spawn_Points.Length; i++)
         {
-            Targets[i-1].transform.position = spawn_Points[i].transform.position;
-            Targets[i-1].SetActive(true);
+            if (i -1 < Targets.Length)
+            {
+                Targets[i - 1].transform.position = spawn_Points[i].transform.position;
+                Targets[i - 1].SetActive(true);
+            }
+            
         }
 
         

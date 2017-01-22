@@ -6,6 +6,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
+    public AudioClip[] gritos;
+    AudioSource source;
+
     //Gamepad Mapping
     public string prefix;
     //
@@ -26,6 +29,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        source = GetComponent<AudioSource>();
         groundDistance = .5f;
         rb = GetComponent<Rigidbody>();
     }
@@ -100,6 +104,15 @@ public class PlayerController : MonoBehaviour
 
     void TestDeath()
     {
+        AudioClip clip = gritos[UnityEngine.Random.Range(0,gritos.Length)];
+        if (transform.position.y < -15)
+        {
+            source.clip = clip;
+            source.Play();
+        }
+            
+            
+
         if (transform.position.y < -25)
         {
             gameObject.SetActive(false);
