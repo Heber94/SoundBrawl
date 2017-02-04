@@ -9,14 +9,14 @@ Puedes contactar con cualquiera de nosotros en los siguientes e-mails:
 
 You can easily write to anyone of us on the next e-mails:
 
-Álvaro - agomezvillalain@gmail.com
+  Álvaro - agomezvillalain@gmail.com
 
-Héber - heber_hsc@hotmail.com
+  Héber - heber_hsc@hotmail.com
 
-José Antonio - jo94se@hotmail.com
+  José Antonio - jo94se@hotmail.com
 
-Luis Guillermo - luis-g-contreras@hotmail.com
+  Luis Guillermo - luis-g-contreras@hotmail.com
 
-Miguel - miguelrodric@hotmail.com
+  Miguel - miguelrodric@hotmail.com
 
-Pablo - alejosrocks@gmail.com
+  Pablo - alejosrocks@gmail.com
