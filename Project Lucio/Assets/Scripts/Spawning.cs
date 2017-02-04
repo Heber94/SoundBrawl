@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Spawning : MonoBehaviour {
 
+    private float spawnLimitTime = 3f;
+
+    private float[] currentSpawnTimes;
     
     public GameObject[] Targets;
 
@@ -23,37 +26,44 @@ public class Spawning : MonoBehaviour {
             }
             
         }
-
+        currentSpawnTimes = new float[Targets.Length];
+        for(int i = 0; i < Targets.Length; i++)
+        {
+            currentSpawnTimes[i] = 0;
+        }
         
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        foreach (GameObject target in Targets)
+        
+        for (int i = 0; i < Targets.Length; i++)
         {
-
-            if (target.activeSelf == false)
+            
+            if (Targets[i].activeSelf == false)
             {
-                random = (int)Random.Range(1f, spawn_Points.Length-1);
-
-                target.SetActive(true);
-                target.transform.position = spawn_Points[random].transform.position;
-                target.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                currentSpawnTimes[i] += Time.deltaTime;
+                if (currentSpawnTimes[i] >= spawnLimitTime)
+                {
+                    random = (int)Random.Range(1f, 5f);
+                    continueSpawn(Targets[i]);
+                    currentSpawnTimes[i] = 0f;
+                }
             }
         }
     }
     
-    //IEnumerator WaitRespawn(GameObject target)
-    //{   
-    //            yield return new WaitForSeconds(2f);
-    //            continueSpawn(target);
-    //}
+
 
    
-    //private void continueSpawn(GameObject target)
-    //{
+    private void continueSpawn(GameObject target)
+    {
 
-    //}
+        target.SetActive(true);
+        target.transform.position = spawn_Points[random].transform.position;
+        target.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        
+    }
 
 
 }
