@@ -5,9 +5,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    
 
     public AudioClip[] gritos;
-    AudioSource source;
+    public AudioSource screams;
+    public AudioSource pasos;
+
+    public float score = 0;
 
     //Gamepad Mapping
     public string prefix;
@@ -22,6 +26,7 @@ public class PlayerController : MonoBehaviour
     float hMovement = 0;
     public float mass;
     private float groundDistance;
+
    
 
     Rigidbody rb;
@@ -29,7 +34,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        source = GetComponent<AudioSource>();
+        
+       
         groundDistance = .5f;
         rb = GetComponent<Rigidbody>();
     }
@@ -47,11 +53,13 @@ public class PlayerController : MonoBehaviour
             if (Input.GetAxis(prefix + "Horizontal") != 0)
             {
                 anim.SetBool("IsWalking", true);
+                pasos.Play();
                 hMovement = Input.GetAxisRaw(prefix + "Horizontal") * speed;
             }
             else
             {
                 anim.SetBool("IsWalking", false);
+                pasos.Play();
             }
             if (Input.GetButtonDown(prefix + "Jump"))
             {
@@ -64,6 +72,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             anim.SetBool("IsFalling", true);
+            pasos.Stop();
             hMovement = Input.GetAxisRaw(prefix + "Horizontal") * speed / airFriction;
 
             if (Input.GetButtonDown(prefix + "Jump"))
@@ -107,16 +116,23 @@ public class PlayerController : MonoBehaviour
         AudioClip clip = gritos[UnityEngine.Random.Range(0,gritos.Length)];
         if (transform.position.y < -15)
         {
-            source.clip = clip;
-            source.Play();
+            screams.clip = clip;
+            screams.Play();
         }
             
             
 
         if (transform.position.y < -25)
         {
+            
+            score += 1;
             gameObject.SetActive(false);
         }
+    }
+
+    void Spikes()
+    {
+        score += 1;
     }
 
 }

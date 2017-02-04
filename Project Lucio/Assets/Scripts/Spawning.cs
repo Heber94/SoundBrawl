@@ -34,27 +34,26 @@ public class Spawning : MonoBehaviour {
 
             if (target.activeSelf == false)
             {
-                random = (int)Random.Range(1f, 5f);
-                StartCoroutine("WaitRespawn", target);
+                random = (int)Random.Range(1f, spawn_Points.Length-1);
 
+                target.SetActive(true);
+                target.transform.position = spawn_Points[random].transform.position;
+                target.GetComponent<Rigidbody>().velocity = Vector3.zero;
             }
         }
     }
     
-    IEnumerator WaitRespawn(GameObject target)
-    {   
-                yield return new WaitForSeconds(2f);
-                continueSpawn(target);
-    }
+    //IEnumerator WaitRespawn(GameObject target)
+    //{   
+    //            yield return new WaitForSeconds(2f);
+    //            continueSpawn(target);
+    //}
 
    
-    private void continueSpawn(GameObject target)
-    {
+    //private void continueSpawn(GameObject target)
+    //{
 
-        target.SetActive(true);
-        target.transform.position = spawn_Points[random].transform.position;
-        target.GetComponent<Rigidbody>().velocity = Vector3.zero;
-    }
+    //}
 
 
 }

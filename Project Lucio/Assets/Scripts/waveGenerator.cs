@@ -3,6 +3,12 @@ using System.Collections;
 
 public class waveGenerator : MonoBehaviour {
 
+
+    AudioSource audiocarga;
+    public AudioClip carga;
+    public AudioClip explota;
+    
+     
 	public GameObject sphere; 
 	public GameObject killerSphere;
 	public Collider[] colliders;
@@ -12,6 +18,7 @@ public class waveGenerator : MonoBehaviour {
 
 
 	void Start () {
+        audiocarga = GetComponent<AudioSource>();
 		sphere.transform.position = transform.position;
 		sphere.transform.localScale = transform.localScale/4;
 		sphere.tag = "Wave";
@@ -29,6 +36,9 @@ public class waveGenerator : MonoBehaviour {
 		Vector3 scale = transform.localScale;
 		sphere.tag = "Wave";
 		if (Input.GetButton(prefix + "Melee")) {
+            audiocarga.clip = carga;
+            audiocarga.loop = false;
+            audiocarga.Play();
 
 			sphere.transform.localScale = Vector3.Lerp (sphere.transform.localScale, 
 			             new Vector3 (transform.localScale.x + targetScale,
@@ -41,6 +51,11 @@ public class waveGenerator : MonoBehaviour {
 			//			            transform.localScale.z + targetScale), Time.deltaTime * growSpeed);
 		} 
 		if (Input.GetButtonUp(prefix + "Melee")) {
+            audiocarga.clip = explota;
+            audiocarga.loop = false;
+            audiocarga.Play();
+            
+
 			explosion.transform.position = transform.position;
 			explosion.Play();
 			killerSphere.SetActive(true);
@@ -52,8 +67,11 @@ public class waveGenerator : MonoBehaviour {
 
 			foreach(Collider col in colliders)
 			{
-				if(col.tag == "Player" && col.gameObject != gameObject)
-					col.gameObject.SetActive(false);
+                if (col.tag == "Player" && col.gameObject != gameObject)
+                {
+                    col.GetComponent<PlayerController>().score += 1;
+                    col.gameObject.SetActive(false);
+                }
 			}
 			
 			sphere.SetActive(false);

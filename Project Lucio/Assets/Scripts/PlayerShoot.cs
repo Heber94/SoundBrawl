@@ -11,6 +11,7 @@ public class PlayerShoot : MonoBehaviour
     public float delay = 1f;
     int nShots = 0;
     public Animator anim;
+    public AudioSource shootSound;
 
     float downMoment, upMoment, pressTime = 0;
 
@@ -35,6 +36,7 @@ public class PlayerShoot : MonoBehaviour
         //if (Input.GetButtonDown(prefix + "Fire1")) {
         if (Input.GetButtonUp(prefix + "Fire1"))
         {
+            shootSound.Play();
             Debug.Log("Suelta");
             anim.SetBool("AttackCharge", false);
             upMoment = Time.time;

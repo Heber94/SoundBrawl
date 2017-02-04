@@ -12,17 +12,16 @@ public class DeadBySpike : MonoBehaviour {
         audioSource = GetComponent<AudioSource>();
 	}
 
-	// Update is called once per frame
-	void Update () {
-
-	}
 
 	void OnCollisionEnter(Collision col)
 	{
-        AudioClip grito = gritos[Random.Range(0, gritos.Length-1)];
+        
+        AudioClip grito = gritos[Random.Range(0, gritos.Length)];
 
 
 		if (col.gameObject.tag == "Player") {
+            PlayerController sc = col.gameObject.GetComponent<PlayerController>();
+            sc.score += 1;
             audioSource.clip = grito;
             audioSource.Play();
 			col.gameObject.SetActive (false);
