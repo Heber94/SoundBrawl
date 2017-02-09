@@ -7,7 +7,7 @@ Se trata de un juego de lucha competitivo de hasta 4 jugadores consistente en el
 #Contacto / Contact
 Puedes contactar con cualquiera de nosotros en los siguientes e-mails:
 
-You can easily write to anyone of us on the next e-mails:
+You can easily write to anyone of us on the following e-mails:
 
   Álvaro - agomezvillalain@gmail.com
 
