@@ -121,10 +121,17 @@ public class PlayerController : MonoBehaviour
         }
             
             
-
+        
         if (transform.position.y < -25)
         {
             
+            score += 1;
+            gameObject.SetActive(false);
+        }
+
+        //When a player flies away, this limits the amount of distance that they stay alive
+        if(transform.position.x < -100 || transform.position.x > 100)
+        {
             score += 1;
             gameObject.SetActive(false);
         }

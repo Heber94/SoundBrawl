@@ -18,6 +18,7 @@ public class GameModeScript : MonoBehaviour {
 
     public void chooseMode(int nPlayers)
     {
+        PlayerPrefs.SetInt("NPlayers", nPlayers);
         SceneManager.LoadScene("Level1");
     }
 }
