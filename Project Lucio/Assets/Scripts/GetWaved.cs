@@ -2,7 +2,10 @@
 using System.Collections;
 
 public class GetWaved : MonoBehaviour {
-	Rigidbody rb;
+
+
+
+    Rigidbody rb;
 
 	// Use this for initialization
 	void Start () {
@@ -18,11 +21,7 @@ public class GetWaved : MonoBehaviour {
 		// If the object we hit is the enemy
 		if (c.gameObject.tag == "Wave")
 		{
-           
-
             force = Mathf.Clamp(c.gameObject.transform.localScale.y, 100, 200);
-
-
             Vector3 dir = c.gameObject.transform.position - transform.position;
 			// We then get the opposite (-Vector3) and normalize it
 			dir = -dir.normalized;

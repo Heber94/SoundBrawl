@@ -55,7 +55,6 @@ public class waveGenerator : MonoBehaviour {
             audiocarga.loop = false;
             audiocarga.Play();
             
-
 			explosion.transform.position = transform.position;
 			explosion.Play();
 			killerSphere.SetActive(true);
@@ -69,7 +68,6 @@ public class waveGenerator : MonoBehaviour {
 			{
                 if (col.tag == "Player" && col.gameObject != gameObject)
                 {
-                    col.GetComponent<PlayerController>().score += 1;
                     col.gameObject.SetActive(false);
                 }
 			}

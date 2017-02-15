@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class ScoreController : MonoBehaviour {
 
-	
 
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
+    //Suma puntuación al jugador seleccionado
+    public static void AddScore(Player p, int amount)
+    {
+        p.score += amount;
+    }
 
 
 }

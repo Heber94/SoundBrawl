@@ -21,6 +21,7 @@ public class CameraControl : MonoBehaviour
 
     private void Awake()
     {
+        Time.timeScale = 1;
         m_Camera = gameObject.GetComponent<Camera>();
     }
 

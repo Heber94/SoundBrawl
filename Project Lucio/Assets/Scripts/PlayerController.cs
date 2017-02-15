@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+
+    Player player;
+    float mass;
     
-
-    public AudioClip[] gritos;
-    public AudioSource screams;
+    
     public AudioSource pasos;
-
-    public float score = 0;
+    
 
     //Gamepad Mapping
     public string prefix;
@@ -24,18 +24,16 @@ public class PlayerController : MonoBehaviour
     public float gravity = 9.8f;
     public float airFrictionUp = 6f;
     float hMovement = 0;
-    public float mass;
+    
     private float groundDistance;
-
-   
 
     Rigidbody rb;
     private bool doubleJump = true;
 
     void Start()
-    {
-        
-       
+    { 
+        player = GetComponent<Player>();
+        mass = player.mass;
         groundDistance = .5f;
         rb = GetComponent<Rigidbody>();
     }
@@ -43,7 +41,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         TestDeath();
-
         rb.AddForce(Vector3.down * gravity * mass / 2);
 
         //movement Manager
@@ -99,9 +96,6 @@ public class PlayerController : MonoBehaviour
             transform.Translate(Vector3.right * hMovement * Time.deltaTime);
         }
 
-
-       
-
         rb.AddForce(Vector3.up * airFrictionUp);
     }
 
@@ -113,33 +107,29 @@ public class PlayerController : MonoBehaviour
 
     void TestDeath()
     {
-        AudioClip clip = gritos[UnityEngine.Random.Range(0,gritos.Length)];
+        
         if (transform.position.y < -15)
         {
-            screams.clip = clip;
-            screams.Play();
+            player.Scream();
         }
-            
-            
-        
+
         if (transform.position.y < -25)
         {
-            
-            score += 1;
+            ScoreController.AddScore(player, 1);
             gameObject.SetActive(false);
         }
 
         //When a player flies away, this limits the amount of distance that they stay alive
         if(transform.position.x < -100 || transform.position.x > 100)
         {
-            score += 1;
+            ScoreController.AddScore(player, 1);
             gameObject.SetActive(false);
         }
     }
 
     void Spikes()
     {
-        score += 1;
+        player.score += 1;
     }
 
 }

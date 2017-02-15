@@ -3,27 +3,12 @@ using System.Collections;
 
 public class DeadBySpike : MonoBehaviour {
 
-
-    AudioSource audioSource;
-    public AudioClip[] gritos;
-
-	// Use this for initialization
-	void Start () {
-        audioSource = GetComponent<AudioSource>();
-	}
-
-
+    //Cuando muere acciona el grito
 	void OnCollisionEnter(Collision col)
 	{
-        
-        AudioClip grito = gritos[Random.Range(0, gritos.Length)];
-
-
 		if (col.gameObject.tag == "Player") {
-            PlayerController sc = col.gameObject.GetComponent<PlayerController>();
-            sc.score += 1;
-            audioSource.clip = grito;
-            audioSource.Play();
+            col.gameObject.GetComponent<Player>().Scream();
+            ScoreController.AddScore(col.gameObject.GetComponent<Player>(), 1);
 			col.gameObject.SetActive (false);
 		}
 	}

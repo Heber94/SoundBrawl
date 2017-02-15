@@ -3,34 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class IfazController : MonoBehaviour {
+public class IfazController : MonoBehaviour
+{
 
-
-    public PlayerController p1;
-    public PlayerController p2;
-    public PlayerController p3;
-    public PlayerController p4;
+    public GameObject p1;
+    public GameObject p2;
+    public GameObject p3;
+    public GameObject p4;
 
     public Text tp1;
     public Text tp2;
     public Text tp3;
     public Text tp4;
 
-
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-        tp1.text = p1.score.ToString();
-        tp2.text = p2.score.ToString();
-        tp3.text = p3.score.ToString();
-        tp4.text = p4.score.ToString();
+    public Text remainingTime;
 
 
+
+
+
+    // Update is called once per frame
+    void Update()
+    {
+        //Actializa las puntuaciones en los marcadores
+        tp1.text = p1.GetComponent<Player>().score.ToString();
+        tp2.text = p2.GetComponent<Player>().score.ToString();
+        tp3.text = p3.GetComponent<Player>().score.ToString();
+        tp4.text = p4.GetComponent<Player>().score.ToString();
+
+        float time = FindObjectOfType<GameOverManager>().remainingTime;
+        remainingTime.text = (time/60).ToString("00") +":" + (time%60).ToString("00");
 
     }
 }
