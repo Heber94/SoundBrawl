@@ -12,6 +12,7 @@ public class PlayerShoot : MonoBehaviour
     int nShots = 0;
     public Animator anim;
     public AudioSource shootSound;
+    
 
     float downMoment, upMoment, pressTime = 0;
 
@@ -71,12 +72,15 @@ public class PlayerShoot : MonoBehaviour
             Debug.Log(nextSpawnTime + " " + Time.time);
 
             GameObject wave = (GameObject)Instantiate(wavePrefab, waveSpawn.position, waveSpawn.rotation);
+            wave.gameObject.name = gameObject.name + "_Wave";
             wave.gameObject.tag = "Wave";
             // Add velocity to the wave
             wave.GetComponent<Rigidbody>().velocity = wave.transform.right * 6;
-
-            // Destroy the wave after 2 seconds
+            Physics.IgnoreCollision(wave.GetComponent<Collider>(), gameObject.GetComponent<Collider>());
             Destroy(wave, 1.0f);
+            
+            // Destroy the wave after 2 seconds
+            
         }
     }
 
